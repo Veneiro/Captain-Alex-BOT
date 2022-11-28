@@ -16,6 +16,8 @@ General commands:
 /leave - Disconnected the bot from the voice channel
 /pause - pauses the current song being played or resumes if already paused
 /resume - resumes playing the current song
+/current - displays the current song
+/playlist - play an entire Youtube playlist
 ```
 """
         self.text_channel_list = []

@@ -12,10 +12,12 @@ class music_cog(commands.Cog):
         # all the music related stuff
         self.is_playing = False
         self.is_paused = False
+        self.current = "";
 
         # 2d array containing [song, channel]
         self.music_queue = []
-        self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
+        self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True', 'dump_single_json': 'True',
+                            'extract_flat' : 'True'}
         self.FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                                'options': '-vn'}
 
@@ -82,6 +84,7 @@ class music_cog(commands.Cog):
             self.vc.resume()
         else:
             song = self.search_yt(query)
+            self.current = song;
             if type(song) == type(True):
                 await ctx.send(
                     "Could not download the song. Incorrect format try another keyword. This could be due to playlist or a livestream format.")
@@ -143,3 +146,11 @@ class music_cog(commands.Cog):
         self.is_playing = False
         self.is_paused = False
         await self.vc.disconnect()
+
+    @commands.command(name="current", aliases=["now"], help="Displays the current song")
+    async def current(self, ctx):
+        retval = "Now Playing: " + self.current['title']
+        if retval != "":
+            await ctx.send(retval)
+        else:
+            await ctx.send("No music in queue")
