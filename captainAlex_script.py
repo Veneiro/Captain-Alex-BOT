@@ -1,9 +1,9 @@
-import async_timeout
 import discord
 import os
 from discord.ext import commands
 from music_cog import music_cog
 from help_cog import help_cog
+from variety_cog import variety_cog
 from dotenv import load_dotenv
 
 
@@ -14,6 +14,7 @@ bot.remove_command("help")
 
 bot.add_cog(help_cog(bot))
 bot.add_cog(music_cog(bot))
+bot.add_cog(variety_cog(bot))
 
 #@bot.event
 #async def on_ready():
